@@ -15,28 +15,30 @@ import {
   InputLeftElement,
   SimpleGrid,
 } from "@chakra-ui/react";
-import Loader from "./components/Loading";
-import SearchIcon from "@chakra-ui/icons";
 import pokedexText from "/PokemonText.png";
+import PokemonCard from "./components/PokemonCard";
+
 
 function App() {
   const [pokemon, setPokemon] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState([]);
-
-  interface Pokemon {
-    id: number;
-    name: string;
-    types: string;
-  }
+  const [meta, setMeta] = useState([]);
 
   useEffect(() => {
-    fetch("https://intern-pokedex.myriadapps.com/api/v1/pokemon")
-      .then((response) => response.json())
-      .then((res) => console.log(res))
-      .catch((err) => setError(err));
-  }, []);
+    const fetchApi = async () => {
+      const information = await fetch(
+        "https://intern-pokedex.myriadapps.com/api/v1/pokemon",
+        {
+          method: "GET",
+        }
+      );
+      const jsonData = await information.json();
+      setPokemon(jsonData.data);
+      setMeta(jsonData.meta);
+    };
 
+    fetchApi();
+  }, []);
   return (
     <Box className="pageContainer">
       <Box className="pageHeader">
@@ -97,26 +99,17 @@ function App() {
           </Box>
         </Flex>
       </Box>
-      <Box className="pageBody">
-        <SimpleGrid
-          columns={[2, 3, 4, 5]}
-          spacing="10"
-          paddingLeft="5"
-          paddingRight="5"
-          paddingTop="5"
-        >
-          <Box bg="teal" height="150px"></Box>
-          <Box bg="teal" height="150px"></Box>
-          <Box bg="teal" height="150px"></Box>
-          <Box bg="teal" height="150px"></Box>
-          <Box bg="teal" height="150px"></Box>
-          <Box bg="teal" height="150px"></Box>
-          <Box bg="teal" height="150px"></Box>
-          <Box bg="teal" height="150px"></Box>
-          <Box bg="teal" height="150px"></Box>
-          <Box bg="teal" height="150px"></Box>
-        </SimpleGrid>
-      </Box>
+      <SimpleGrid
+        columns={[2, 3, 4, 5]}
+        spacing="10"
+        paddingLeft="5"
+        paddingRight="5"
+        paddingTop="5"
+      >
+        {pokemon.map((pokemon) => (
+          <PokemonCard key={pokemon.id} />
+        ))}{" "}
+      </SimpleGrid>
     </Box>
   );
 }
@@ -125,15 +118,24 @@ export default App;
 
 //let pokemonURL = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png`;
 
-// interface Pokemon {
-//   id: number;
-//   name: string,
-//   types: string
-// }
 
-// useEffect(() => {
-//   fetch("https://intern-pokedex.myriadapps.com/api/v1/pokemon")
-//     .then((response) => response.json())
-//     .then((res) => console.log(res))
-//     .catch((err) => setError(err));
-// }, []);
+{
+  /* <SimpleGrid
+columns={[2, 3, 4, 5]}
+spacing="10"
+paddingLeft="5"
+paddingRight="5"
+paddingTop="5"
+>
+<Box bg="teal" height="150px"></Box>
+<Box bg="teal" height="150px"></Box>
+<Box bg="teal" height="150px"></Box>
+<Box bg="teal" height="150px"></Box>
+<Box bg="teal" height="150px"></Box>
+<Box bg="teal" height="150px"></Box>
+<Box bg="teal" height="150px"></Box>
+<Box bg="teal" height="150px"></Box>
+<Box bg="teal" height="150px"></Box>
+<Box bg="teal" height="150px"></Box>
+</SimpleGrid> */
+}
