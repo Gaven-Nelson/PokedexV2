@@ -1,0 +1,152 @@
+.poison {
+    border-color: #a040a0;
+    background-color: rgb(160, 64, 160, 0.35);
+    color: #a040a0;
+   
+    font-weight: bold;
+  }
+  
+  .flying {
+    border-color: #a890f0;
+    background-color: rgb(168, 144, 240, 0.35);
+    color: #a890f0;
+   
+    font-weight: bold;
+  }
+  
+  .bug {
+    border-color: #a8b820;
+    background-color: rgb(168, 184, 32, 0.35);
+    color: #a8b820;
+   
+    font-weight: bold;
+  }
+  
+  .dark {
+    border-color: #705848;
+    background-color: rgb(180, 150, 130, 0.35);
+    color: #705848;
+   
+    font-weight: bold;
+  }
+  
+  .dragon {
+    border-color: #7038f8;
+    background-color: rgb(112, 56, 248, 0.35);
+    color: #7038f8;
+   
+    font-weight: bold;
+  }
+  
+  .electric {
+    border-color: #f8d030;
+    background-color: rgb(248, 208, 48, 0.35);
+    color: #f8d030;
+   
+    font-weight: bold;
+  }
+  
+  .fairy {
+    border-color: #ee99ac;
+    background-color: rgb(238, 153, 172, 0.35);
+    color: #ee99ac;
+   
+    font-weight: bold;
+  }
+  
+  .fighting {
+    border-color: #c03028;
+    background-color: rgb(192, 48, 40, 0.35);
+    color: #c03028;
+   
+    font-weight: bold;
+  }
+  
+  .fire {
+    border-color: #f08030;
+    background-color: rgb(240, 128, 48, 0.35);
+    color: #f08030;
+   
+    font-weight: bold;
+  }
+  
+  .ghost {
+    border-color: #705898;
+    background-color: rgb(112, 88, 152, 0.35);
+    color: #705898;
+   
+    font-weight: bold;
+    
+  }
+  
+  .grass {
+    border-color: #78c850;
+    background-color: rgb(120, 200, 80, 0.35);
+    color: #78c850;
+   
+    font-weight: bold;
+  }
+  
+  .ground {
+    border-color: #e0c068;
+    background-color: rgb(224, 192, 104, 0.35);
+    color: #e0c068;
+   
+    font-weight: bold;
+  }
+  
+  .normal {
+    border-color: #a8a878;
+    background-color: rgb(168, 168, 120, 0.35);
+    color: #a8a878;
+   
+    font-weight: bold;
+  }
+  
+  .ice {
+    border-color: #98d8d8;
+    background-color: rgb(152, 216, 216, 0.35);
+    color: #98d8d8;
+   
+    font-weight: bold;
+  }
+  
+  .psychic {
+    border-color: #f85888;
+    background-color: rgb(248, 88, 136, 0.35);
+    color: #f85888;
+   
+    font-weight: bold;
+  }
+  
+  .rock {
+    border-color: #b8a038;
+    background-color: rgb(184, 160, 56, 0.35);
+    color: #b8a038;
+   
+    font-weight: bold;
+  }
+  
+  .steel {
+    border-color: #b8b8d0;
+    background-color: rgb(184, 184, 208, 0.35);
+    color: #b8b8d0;
+   
+    font-weight: bold;
+  }
+  
+  .water {
+    border-color: rgb(91, 199, 229, 1);
+    background-color: rgb(91, 199, 229, 0.4);
+    color: rgb(91, 199, 229, 1);
+   
+    font-weight: bold;
+  }
+
+  .abilities{
+    text-transform: capitalize;
+  }
+
+  .eggs{
+    text-transform: capitalize;
+  }
