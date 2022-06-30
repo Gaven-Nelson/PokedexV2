@@ -17,7 +17,7 @@ function ArtMenu() {
 
   return (
     <Box paddingTop="5">
-      <Menu>
+   <Menu>
         <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
           Pokemon Art Style
         </MenuButton>
@@ -25,7 +25,7 @@ function ArtMenu() {
           <MenuItemOption
             minH="40px"
             value="cartoon"
-            onClick={() => setArtStyle("cartoon")}
+            onClick={() => setArtStyle("1")}
           >
             <Image
               boxSize="3rem"
@@ -38,7 +38,7 @@ function ArtMenu() {
           <MenuItemOption
             minH="40px"
             value="sugimori"
-            onClick={() => setArtStyle("sugimori")}
+            onClick={() => setArtStyle("2")}
           >
             <Image
               boxSize="3rem"
@@ -51,7 +51,7 @@ function ArtMenu() {
           <MenuItemOption
             minH="40px"
             value="threeD"
-            onClick={() => setArtStyle("threeD")}
+            onClick={() => setArtStyle("3")}
           >
             <Image
               boxSize="3rem"
@@ -64,7 +64,7 @@ function ArtMenu() {
           <MenuItemOption
             minH="40px"
             value="eightBit"
-            onClick={() => setArtStyle("eightBit")}
+            onClick={() => setArtStyle("4")}
           >
             <Image
               boxSize="3.8rem"
@@ -73,6 +73,19 @@ function ArtMenu() {
               mr="0px"
             />
             <span>8-Bit Art</span>
+          </MenuItemOption>
+          <MenuItemOption
+            minH="40px"
+            value="real3D"
+            onClick={() => setArtStyle("5")}
+          >
+            <Image
+              boxSize="3.8rem"
+              src="https://projectpokemon.org/images/normal-sprite/charmander.gif"
+              alt="realThreeD"
+              mr="0px"
+            />
+            <span>Animated Model</span>
           </MenuItemOption>
         </MenuList>
       </Menu>

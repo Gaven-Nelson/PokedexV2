@@ -1,24 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useParams, useNavigate } from "react-router-dom";
-import {
-  Box,
-  Flex,
-  Container,
-  Grid,
-  GridItem,
-  AspectRatio,
-  Image,
-  Button,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  SimpleGrid,
-  MenuButton,
-  Menu,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-} from "@chakra-ui/react";
+import { Box, Flex, Container, Image, Button, Stack } from "@chakra-ui/react";
+import { Progress } from "@chakra-ui/progress";
 import App from "../App";
 import PokemonCard from "./PokemonCard";
 import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/components/Details.css";
@@ -35,6 +18,14 @@ function Details({ id, name, image, types }: pokemon) {
   const [isLoading, setIsLoading] = useState(true);
   const pokemonId = useParams().id;
   const navigate = useNavigate();
+
+  const handleBackButton = () => {
+    navigate(-1);
+  };
+
+  const handleHomeButton = () => {
+    navigate("/");
+  };
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -68,9 +59,29 @@ function Details({ id, name, image, types }: pokemon) {
             padding={["5", "6", "8"]}
             fontSize={["10", "15", "20"]}
           >
-            <Button color="black">Back Arrow</Button>
+            <Button
+              onClick={handleBackButton}
+              bg="black"
+              size={["sm", "md", "lg"]}
+              colorScheme="teal"
+              variant="solid"
+              borderRadius="50%"
+              fontSize="1.3em"
+            >
+              &#10094;
+            </Button>
             <Box color="white">{pokemon.name}</Box>
-            <Box color="black">Home Button</Box>
+            <Button
+              onClick={handleHomeButton}
+              bg="black"
+              size={["sm", "md", "lg"]}
+              colorScheme="black"
+              variant="solid"
+              borderRadius="5"
+              fontSize="1.3em"
+            >
+              Home
+            </Button>
           </Flex>
         </Box>
         <Flex justifyContent="center" h={["75%", "80%", "80%"]} w="100%">
@@ -148,17 +159,18 @@ function Details({ id, name, image, types }: pokemon) {
                 paddingTop="8"
                 paddingLeft="5"
               >
+                <Flex>
                 <Box
                   border="1px"
-                  paddingRight="60"
+                  
                   paddingLeft="2"
                   className={pokemon.types[1]}
                 >
                   {pokemon.stats.hp}
-                </Box>
+                </Box><Progress value={100} colorScheme="teal" /></Flex>
                 <Box
                   border="1px"
-                  paddingRight="60"
+                  paddingRight="6"
                   paddingLeft="2"
                   className={pokemon.types[1]}
                 >
@@ -166,7 +178,7 @@ function Details({ id, name, image, types }: pokemon) {
                 </Box>
                 <Box
                   border="1px"
-                  paddingRight="60"
+                  paddingRight="1"
                   paddingLeft="2"
                   className={pokemon.types[1]}
                 >
@@ -174,7 +186,7 @@ function Details({ id, name, image, types }: pokemon) {
                 </Box>
                 <Box
                   border="1px"
-                  paddingRight="60"
+                  paddingRight="1"
                   paddingLeft="2"
                   className={pokemon.types[1]}
                 >
@@ -182,7 +194,7 @@ function Details({ id, name, image, types }: pokemon) {
                 </Box>
                 <Box
                   border="1px"
-                  paddingRight="60"
+                  paddingRight="1"
                   paddingLeft="2"
                   className={pokemon.types[1]}
                 >
@@ -194,57 +206,51 @@ function Details({ id, name, image, types }: pokemon) {
               </Flex>
             </Flex>
             <Flex h="10%" paddingTop="10" color="black">
-                <Box>
-                    {pokemon.genus}
-                </Box>
+              <Box>{pokemon.genus}</Box>
             </Flex>
             <Flex h="10%" color="black" fontWeight="normal">
-                <Box>
-                    {pokemon.description}
-                </Box>
+              <Box>{pokemon.description}</Box>
             </Flex>
             <Flex w="100%" color="black" fontWeight="normal">
-                <Box border="1px" w="100%" padding="1" className={pokemon.types[0]}>
-                    Profile
-                </Box>
+              <Box
+                border="1px"
+                w="100%"
+                padding="1"
+                className={pokemon.types[0]}
+              >
+                Profile
+              </Box>
             </Flex>
             <Flex>
-            <Flex flexDirection="column" gap="20" paddingTop="20">
+              <Flex flexDirection="column" gap="20" paddingTop="20">
                 <Flex>
-                <Box color="black">
-                    Height:
-                </Box>
-                <Box paddingLeft="2">
-                    {pokemon.height} m
-                </Box>
+                  <Box color="black">Height:</Box>
+                  <Box paddingLeft="2">{pokemon.height} m</Box>
                 </Flex>
                 <Flex>
-                <Box color="black">
-                    Weight:
-                </Box>
-                <Box paddingLeft="2">
-                    {pokemon.weight} kg
-                </Box>
+                  <Box color="black">Weight:</Box>
+                  <Box paddingLeft="2">{pokemon.weight} kg</Box>
                 </Flex>
-            </Flex>
-            <Flex flexDirection="column" gap="20" paddingTop="20" paddingLeft="40">
+              </Flex>
+              <Flex
+                flexDirection="column"
+                gap="20"
+                paddingTop="20"
+                paddingLeft="40"
+              >
                 <Flex>
-                <Box color="black">
-                    Egg Groups:
-                </Box>
-                <Box paddingLeft="2" className="eggs">
-                     {pokemon.egg_groups.join(", ")}
-                </Box>
+                  <Box color="black">Egg Groups:</Box>
+                  <Box paddingLeft="2" className="eggs">
+                    {pokemon.egg_groups.join(", ")}
+                  </Box>
                 </Flex>
                 <Flex>
-                <Box color="black">
-                    Abilities:
-                </Box>
-                <Box paddingLeft="2" className="abilities">
+                  <Box color="black">Abilities:</Box>
+                  <Box paddingLeft="2" className="abilities">
                     {pokemon.abilities.join(", ")}
-                </Box>
+                  </Box>
                 </Flex>
-            </Flex>
+              </Flex>
             </Flex>
           </Box>
         </Flex>
@@ -256,3 +262,48 @@ function Details({ id, name, image, types }: pokemon) {
 export default Details;
 
 //mapping
+{
+  /* <Flex
+flexDirection="column"
+gap="4"
+paddingTop="8"
+paddingLeft="5"
+>
+<Progress colorScheme="purple.300" size="lg" value={45} />
+<Box
+  border="1px"
+  paddingRight="60"
+  paddingLeft="2"
+  className={pokemon.types[1]}
+>
+  {pokemon.stats.attack}
+</Box>
+<Box
+  border="1px"
+  paddingRight="60"
+  paddingLeft="2"
+  className={pokemon.types[1]}
+>
+  {pokemon.stats.defense}
+</Box>
+<Box
+  border="1px"
+  paddingRight="60"
+  paddingLeft="2"
+  className={pokemon.types[1]}
+>
+  {pokemon.stats.speed}
+</Box>
+<Box
+  border="1px"
+  paddingRight="60"
+  paddingLeft="2"
+  className={pokemon.types[1]}
+>
+  {pokemon.stats["special-attack"]}
+</Box>
+<Box border="1px" paddingLeft="2" className={pokemon.types[1]}>
+  {pokemon.stats["special-defense"]}
+</Box>
+</Flex> */
+}

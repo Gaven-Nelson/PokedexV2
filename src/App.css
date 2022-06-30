@@ -14,6 +14,10 @@
   font-size: 2em;
   width: 100%;
   height: 20%;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+
 }
 
 .leftButton{
