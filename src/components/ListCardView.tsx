@@ -4,7 +4,6 @@ import { Box, Flex, Image, Button, AspectRatio } from "@chakra-ui/react";
 import ArtMenu from "./ArtMenu";
 import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/components/PokemonCard.css";
-<style>@import url('http://fonts.cdnfonts.com/css/pokemon-solid');</style>;
 
 interface Props {
   id: number;
@@ -14,7 +13,8 @@ interface Props {
   artStyle: string;
 }
 
-const PokemonCard = ({ id, name, image, types, artStyle }: Props) => {
+
+const ListCardView = ({ id, name, image, types, artStyle }: Props) => {
   let selectedArtStyle = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png`;
   const navigate = useNavigate();
 
@@ -136,24 +136,6 @@ const PokemonCard = ({ id, name, image, types, artStyle }: Props) => {
   );
 };
 
-export default PokemonCard;
+export default ListCardView;
 
-// <Button
-// justifyContent="flex-end"
-// paddingBottom="2"
-// paddingLeft={["0", "0", "72%"]}
-// gap={["1", "2", "3"]}
-// fontSize={["5", "8", "12"]}
-// >
-// {types.map((type) => (
-//   <Box
-//     key={type}
-//     border="1px"
-//     borderRadius="5"
-//     className={type}
-//     padding="1"
-//   >
-//     {type.charAt(0).toUpperCase() + type.slice(1)}
-//   </Box>
-// ))}
-// </Button>
+
