@@ -1,6 +1,14 @@
 import React from "react";
 import App from "../App";
-import { Box, Flex, Image, Button, AspectRatio } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Image,
+  Button,
+  AspectRatio,
+  Skeleton,
+  Container,
+} from "@chakra-ui/react";
 import ArtMenu from "./ArtMenu";
 import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/components/PokemonCard.css";
@@ -11,9 +19,17 @@ interface Props {
   image: string;
   types: Array<string>;
   artStyle: string;
+  isLoading: boolean;
 }
 
-const PokemonCard = ({ id, name, image, types, artStyle }: Props) => {
+const PokemonCard = ({
+  id,
+  name,
+  image,
+  types,
+  artStyle,
+  isLoading,
+}: Props) => {
   let selectedArtStyle = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png`;
   const navigate = useNavigate();
 
@@ -24,46 +40,46 @@ const PokemonCard = ({ id, name, image, types, artStyle }: Props) => {
       specialCharacter = "nidoran-m";
       break;
     case id == 32:
-        specialCharacter = "nidoran-f";
-        break;
+      specialCharacter = "nidoran-f";
+      break;
     case id == 83:
-        specialCharacter = "farfetchd";
-        break;
+      specialCharacter = "farfetchd";
+      break;
     case id == 122:
-        specialCharacter = "mr-mime";
-        break;
+      specialCharacter = "mr-mime";
+      break;
     case id == 439:
-        specialCharacter = "mime-jr";
-        break;
+      specialCharacter = "mime-jr";
+      break;
     default:
-        specialCharacter = name;
-        break;
+      specialCharacter = name;
+      break;
   }
 
-  //the links have different formats for pokemon, this one uses underscores 
+  //the links have different formats for pokemon, this one uses underscores
   let specialCharacter3d = "";
   switch (true) {
     case id == 29:
       specialCharacter3d = "nidoran_m";
       break;
     case id == 32:
-        specialCharacter3d = "nidoran_f";
-        break;
+      specialCharacter3d = "nidoran_f";
+      break;
     case id == 83:
-        specialCharacter3d = "farfetchd";
-        break;
+      specialCharacter3d = "farfetchd";
+      break;
     case id == 122:
-        specialCharacter3d = "mr.mime";
-        break;
+      specialCharacter3d = "mr.mime";
+      break;
     case id == 439:
-        specialCharacter3d = "mime_jr";
-        break;
+      specialCharacter3d = "mime_jr";
+      break;
     default:
-        specialCharacter3d = name;
-        break;
+      specialCharacter3d = name;
+      break;
   }
 
-  //this needs three digits so this appends zeros if its less than three digits 
+  //this needs three digits so this appends zeros if its less than three digits
   let sugimoriId = "1";
   switch (true) {
     case id < 10:
@@ -116,16 +132,17 @@ const PokemonCard = ({ id, name, image, types, artStyle }: Props) => {
       bg="gray.100"
       borderRadius="10"
       shadow="base"
-      h="100%"
       flexDirection="column"
       className={types[0]}
-      border="1px"
+      border="2px"
       boxShadow="xl"
+      h="100%"
     >
       <Flex paddingRight={["0", "0", "30%", "30%", "60%"]}>
         <Box fontSize={["10", "12", "20"]} fontWeight="medium" paddingTop="2">
           {name}
         </Box>
+
         <Box
           fontSize={["5", "8", "15"]}
           paddingLeft="2"
@@ -136,15 +153,17 @@ const PokemonCard = ({ id, name, image, types, artStyle }: Props) => {
         </Box>
       </Flex>
       <Flex justifyContent="center" minH="100">
-        <Image
-          src={selectedArtStyle}
-          maxH={["100", "150", "200"]}
-          maxW={["100", "150", "200"]}
-          minH={["10", "100", "150"]}
-          minW={["10", "100", "150"]}
-          paddingBottom="5"
-          paddingTop="5"
-        />
+    
+          <Image
+            src={selectedArtStyle}
+            maxH={["100", "150", "200"]}
+            maxW={["100", "150", "200"]}
+            minH={["10", "100", "150"]}
+            minW={["10", "100", "150"]}
+            paddingBottom="5"
+            paddingTop="5"
+          />
+    
       </Flex>
 
       <Flex

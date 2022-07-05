@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useParams, useNavigate } from "react-router-dom";
-import { Box, Flex, Container, Image, Button, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Container,
+  Image,
+  Button,
+  Stack,
+  color,
+  Colors,
+} from "@chakra-ui/react";
 import { Progress } from "@chakra-ui/progress";
 import App from "../App";
 import PokemonCard from "./PokemonCard";
@@ -70,7 +79,8 @@ function Details({ id, name, image, types }: pokemon) {
             >
               &#10094;
             </Button>
-            <Box color="white">{pokemon.name}</Box>
+
+            <Box color="white" fontSize="40">{pokemon.name}</Box>
             <Button
               onClick={handleHomeButton}
               bg="black"
@@ -155,53 +165,131 @@ function Details({ id, name, image, types }: pokemon) {
               </Flex>
               <Flex
                 flexDirection="column"
-                gap="4"
+                gap="5"
                 paddingTop="8"
                 paddingLeft="5"
               >
-                <Flex>
-                <Box
-                  border="1px"
-                  
-                  paddingLeft="2"
-                  className={pokemon.types[1]}
-                >
-                  {pokemon.stats.hp}
-                </Box><Progress value={100} colorScheme="teal" /></Flex>
-                <Box
-                  border="1px"
-                  paddingRight="6"
-                  paddingLeft="2"
-                  className={pokemon.types[1]}
-                >
-                  {pokemon.stats.attack}
+                <Box border="1px">
+                  <Box
+                    color="white"
+                    position="absolute"
+                    zIndex="overlay"
+                    justifyContent="center"
+                    alignItems="center"
+                    
+                  >
+                    {pokemon.stats.hp}
+                  </Box>
+
+                  <Progress
+                    h="5"
+                    w="250px"
+                    value={(pokemon.stats.hp / 255) * 100}
+                    className={pokemon.types[0]}
+                    colorScheme="red"
+                    bg="gray.300"
+                  />
                 </Box>
-                <Box
-                  border="1px"
-                  paddingRight="1"
-                  paddingLeft="2"
-                  className={pokemon.types[1]}
-                >
-                  {pokemon.stats.defense}
+                <Box border="1px">
+                  <Box
+                    color="white"
+                    position="absolute"
+                    zIndex="overlay"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {pokemon.stats.attack}
+                  </Box>
+
+                  <Progress
+                    h="5"
+                    w="100%"
+                    value={(pokemon.stats.attack / 165) * 100}
+                    className={pokemon.types[0]}
+                    colorScheme="red"
+                    bg="gray.300"
+                  />
                 </Box>
-                <Box
-                  border="1px"
-                  paddingRight="1"
-                  paddingLeft="2"
-                  className={pokemon.types[1]}
-                >
-                  {pokemon.stats.speed}
+                <Box border="1px">
+                  <Box
+                    color="white"
+                    position="absolute"
+                    zIndex="overlay"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {pokemon.stats.defense}
+                  </Box>
+
+                  <Progress
+                    h="5"
+                    w="100%"
+                    value={(pokemon.stats.defense / 230) * 100}
+                    colorScheme="red"
+                    bg="gray.300"
+                  />
                 </Box>
-                <Box
-                  border="1px"
-                  paddingRight="1"
-                  paddingLeft="2"
-                  className={pokemon.types[1]}
-                >
-                  {pokemon.stats["special-attack"]}
+
+                <Box border="1px">
+                  <Box
+                    color="white"
+                    position="absolute"
+                    zIndex="overlay"
+                    justifyContent="center"
+                    alignItems="center"
+                    
+                  >
+                    {pokemon.stats.speed}
+                  </Box>
+
+                  <Progress
+                    h="5"
+                    w="100%"
+                    value={(pokemon.stats.speed / 160) * 100}
+                    className={pokemon.types[0]}
+                    colorScheme="red"
+                    bg="gray.300"
+                  />
                 </Box>
-                <Box border="1px" paddingLeft="2" className={pokemon.types[1]}>
-                  {pokemon.stats["special-defense"]}
+                <Box border="1px">
+                  <Box
+                    color="white"
+                    position="absolute"
+                    zIndex="overlay"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {pokemon.stats["special-attack"]}
+                  </Box>
+
+                  <Progress
+                    h="5"
+                    w="100%"
+                    value={(pokemon.stats["special-attack"] / 154) * 100}
+                    className={pokemon.types[0]}
+                    colorScheme="red"
+                    bg="gray.300"
+                  />
+                </Box>
+                <Box border="1px">
+                  <Box
+                    color="white"
+                    position="absolute"
+                    zIndex="overlay"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {pokemon.stats["special-defense"]}
+                  </Box>
+
+                  <Progress
+                    h="5"
+                    w="100%"
+                    value={(pokemon.stats["special-defense"] / 230) * 100}
+                    className={pokemon.types[0]}
+                    colorScheme="red"
+                    bg="gray.300"
+                  />
                 </Box>
               </Flex>
             </Flex>

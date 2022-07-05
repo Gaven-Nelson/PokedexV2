@@ -1,6 +1,13 @@
 import React from "react";
 import App from "../App";
-import { Box, Flex, Image, Button, AspectRatio } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Image,
+  Button,
+  AspectRatio,
+  Skeleton,
+} from "@chakra-ui/react";
 import ArtMenu from "./ArtMenu";
 import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/components/PokemonCard.css";
@@ -11,10 +18,17 @@ interface Props {
   image: string;
   types: Array<string>;
   artStyle: string;
+  isLoading: boolean;
 }
 
-
-const ListCardView = ({ id, name, image, types, artStyle }: Props) => {
+const ListCardView = ({
+  id,
+  name,
+  image,
+  types,
+  artStyle,
+  isLoading,
+}: Props) => {
   let selectedArtStyle = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png`;
   const navigate = useNavigate();
 
@@ -112,30 +126,37 @@ const ListCardView = ({ id, name, image, types, artStyle }: Props) => {
   };
 
   return (
-    <Button flexDirection="row" justifyContent="space-between" h="fit-content" className={types[0]} border="1px">
-      <Box fontSize={["10", "20", "30"]} fontFamily="cursive">
-        #{id}
-      </Box>
+   
+      <Button
+        flexDirection="row"
+        justifyContent="space-between"
+        h="fit-content"
+        className={types[0]}
+        border="1px"
+        onClick={handleCardClick}
+      >
+        <Box fontSize={["10", "20", "30"]} fontFamily="cursive">
+          #{id}
+        </Box>
 
-      <Box>{name}</Box>
-      <Image src={selectedArtStyle} maxH="20" />
-      <Box>
-        {types.map((type) => (
-          <Box
-            key={type}
-            border="1px"
-            borderRadius="5"
-            className={type}
-            padding="1"
-          >
-            {type.charAt(0).toUpperCase() + type.slice(1)}
-          </Box>
-        ))}
-      </Box>
-    </Button>
+        <Box fontSize={["10", "15", "25"]}>{name}</Box>
+        <Image src={selectedArtStyle} maxH="20" />
+        <Box>
+          {types.map((type) => (
+            <Box
+              key={type}
+              border="1px"
+              borderRadius="5"
+              className={type}
+              padding="1"
+            >
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </Box>
+          ))}
+        </Box>
+      </Button>
+    
   );
 };
 
 export default ListCardView;
-
-
