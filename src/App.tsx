@@ -20,6 +20,10 @@ import {
   TabPanels,
   TabPanel,
   Skeleton,
+  Show,
+  Center,
+  InputLeftElement,
+  InputRightElement,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import pokedexText from "/PokemonText.png";
@@ -28,16 +32,17 @@ import PokemonCard from "./components/PokemonCard";
 import ListCardView from "./components/ListCardView";
 import pikachu from "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/runningPikachu.gif";
 
-
 function App() {
   const [pokemon, setPokemon] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [meta, setMeta] = useState([]);
+  const [meta, setMeta] = useState<Meta|undefined>(undefined);
+  const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
   let { pageNumber = 1 } = useParams();
   const [artStyle, setArtStyle] = useState("");
+  
 
-  let pageValue = "1";
+//  let pageValue = "1";
 
   interface Pokemon {
     id: number;
@@ -48,34 +53,55 @@ function App() {
     isLoading: boolean;
   }
 
+  interface Meta {
+    current_page: number;
+    last_page: number;
+  }
+
   const toPageValue: RefObject<HTMLInputElement> = createRef();
 
+  const handleHomeButton = () => {
+    navigate("/page/1");
+  };
   const handleGoButton = () => {
-    if (
+    if (meta &&
       +toPageValue.current!.value > 0 &&
       +toPageValue.current!.value <= meta.last_page
     ) {
       navigate(`/page/` + toPageValue.current!.value);
+      
     } else {
-      alert("Please enter valid input")
+      alert("Please enter valid input");
     }
   };
 
+  function handleSearchInput(event: any) {
+    
+    setSearchValue(event.target.value);
+    navigate('/page/1');
+
+  }
+
   const handleClickMinus = () => {
-    if (pageNumber > 1) {
+    if ( pageNumber > 1) {
       navigate(`/page/` + (+pageNumber - +1));
-    } else {
+    } else if(meta){
       navigate(`/page/` + meta.last_page);
     }
   };
 
   const handleClickPlus = () => {
-    if (pageNumber < meta.last_page) {
+    if (meta && pageNumber < meta.last_page) {
       navigate(`/page/` + (+pageNumber + +1));
     } else {
       navigate(`/page/1`);
     }
   };
+
+  const handleClearButton = () => {
+    setSearchValue("");
+    navigate("/page/1" )
+  }
 
   const handleRandomClick = () => {
     navigate("/Id/" + +Math.floor(Math.random() * 553));
@@ -83,7 +109,7 @@ function App() {
 
   useEffect(() => {
     fetch(
-      `https://intern-pokedex.myriadapps.com/api/v1/pokemon?page=${pageNumber}`
+      `https://intern-pokedex.myriadapps.com/api/v1/pokemon?name=${searchValue}&page=${pageNumber}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -91,7 +117,7 @@ function App() {
         setMeta(data.meta);
         setIsLoading(false);
       });
-  }, [pageNumber, artStyle]);
+  }, [pageNumber, artStyle, searchValue]);
 
   if (isLoading === true) {
     return (
@@ -109,7 +135,7 @@ function App() {
   }
 
   return (
-    <Box className="pageContainer" h="100%">
+    <Box className="pageContainer" h="100%" minH="100vh">
       <Box
         // ------------HEADER-------------------
         className="pageHeader"
@@ -120,6 +146,7 @@ function App() {
         backdropFilter="saturate(180%) blur(5px)"
         w="100%"
         zIndex={10}
+        justifyContent="center"
       >
         <Flex //-----------------PREVIOUS PAGE BUTTON-------------------------
           flexDirection="row"
@@ -142,16 +169,23 @@ function App() {
               &#10094;
             </Button>
           </Box>
+
           <Box //----------------POKEDEX TITLE---------------------
           >
-            <Image src={pokedexText} maxW={["20", "100", "250"]} />{" "}
+            <Image
+              src={pokedexText}
+              maxW={["20", "100", "250"]}
+              onClick={handleHomeButton}
+            />{" "}
           </Box>
+
           <Box
             width="60%" //--------------SEARCH BAR------------------
           >
             <InputGroup
               bg="whiteAlpha.100"
               justifyContent="center"
+              alignContent="center"
               ringColor="white"
             >
               <Input
@@ -163,29 +197,16 @@ function App() {
                 color="white"
                 outline="gray"
                 fontSize="50"
+                onChange={handleSearchInput}
+                value={searchValue}
               ></Input>
+             <InputRightElement h="100%" width='4.5rem' paddingRight="2%">
+        <Button h='70%' size='md' textColor="white" bg="teal" onClick={handleClearButton}>
+          Clear
+        </Button>
+      </InputRightElement>
             </InputGroup>
           </Box>
-          <Button //--------------------RANDOM POKEMON BUTTON------------------------
-            bg="white"
-            onClick={handleRandomClick}
-            size={["sm", "md", "lg"]}
-          >
-            <Skeleton
-              startColor="red.500"
-              endColor="blue.500"
-              h="100%"
-              w="100%"
-              position="absolute"
-              borderRadius="5"
-              zIndex="overlay"
-            ></Skeleton>
-            <Image
-              src={randomText}
-              h={["4", "5", "10"]}
-              zIndex="overlay"
-            ></Image>
-          </Button>
 
           <Box
             paddingRight="5" //----------------NEXT PAGE BUTTON-------------------
@@ -214,7 +235,12 @@ function App() {
           paddingRight="2%" //---------------ART SELECT MENU-----------------
         >
           <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              as={Button}
+              w={["100%", "100%", "100%"]}
+              fontSize={["6", "8", "12"]}
+              rightIcon={<ChevronDownIcon />}
+            >
               Pokemon Art Style
             </MenuButton>
             <MenuList>
@@ -291,14 +317,43 @@ function App() {
           paddingLeft="0%" //-------------GO TO PAGE INPUT-----------------
         >
           <Flex alignContent="center" alignItems="center">
-            <Input placeholder="To Page..." w="fit-content" ref={toPageValue} />
+            <Input
+              placeholder="To Page..."
+              ref={toPageValue}
+              color="black"
+              border="2px"
+              borderColor="#91c9ca"
+              w={["20", "30", "40"]}
+            />
 
             <Button onClick={handleGoButton}>Go</Button>
           </Flex>
         </Box>
-        <Box paddingTop={["20", "20%", "158", "208"]} paddingLeft="2%">
-          Page {meta.current_page} of {meta.last_page}
+        <Box
+          paddingTop={["20", "22%", "158", "208"]}
+          paddingLeft="2%"
+          color="black"
+        >
+          Page {meta?.current_page} of {meta?.last_page}
         </Box>
+        <Show above="md">
+          <Box paddingTop={["20", "20%", "150", "200"]} paddingLeft="2%">
+            <Button //--------------------RANDOM POKEMON BUTTON------------------------
+              onClick={handleRandomClick}
+            >
+              <Skeleton
+                startColor="red.500"
+                endColor="blue.500"
+                h="100%"
+                w="100%"
+                position="absolute"
+                borderRadius="5"
+                zIndex="5"
+              ></Skeleton>
+              <Image src={randomText} h={["3", "4", "8"]} zIndex="6"></Image>
+            </Button>
+          </Box>
+        </Show>
       </Flex>
       <Tabs //-------------------TAB SELECTOR-------------------------
       >
@@ -310,11 +365,14 @@ function App() {
         <TabPanels>
           <TabPanel>
             <SimpleGrid
-              columns={[2, 3, 4, 5]}
+              //columns={[1,2,3,4,5]}
               spacing="10"
-              paddingLeft="5"
-              paddingRight="5"
-              paddingTop="0"
+              minChildWidth={280}
+              // display="flex"
+              // flexWrap="wrap"
+              // alignContent="center"
+              // justifyContent="center"
+              justifyItems="center"
             >
               {pokemon.map((pokemon: Pokemon) => (
                 <PokemonCard
@@ -336,6 +394,8 @@ function App() {
               paddingLeft="5"
               paddingRight="5"
               paddingTop="0"
+             
+              
             >
               {pokemon.map((pokemon: Pokemon) => (
                 <ListCardView

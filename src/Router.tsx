@@ -15,6 +15,7 @@ function Router() {
         <Route path="/page" element={<App />} />
         <Route path="/page/:pageNumber" element={<App />} />
         <Route path="/Id/:id" element ={<Details key={undefined} id={1} name={""} image={""} types={[]} />}/>
+        <Route path="/page=:pageNumber/name=:seachValue" element={<App />} />
       </Routes>
     </BrowserRouter>
   );

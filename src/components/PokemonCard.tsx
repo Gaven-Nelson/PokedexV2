@@ -13,6 +13,8 @@ import ArtMenu from "./ArtMenu";
 import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/components/PokemonCard.css";
 
+
+
 interface Props {
   id: number;
   name: string;
@@ -98,6 +100,11 @@ const PokemonCard = ({
   const pokedexURL = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${sugimoriId}.png`;
   const real3DURL = `https://projectpokemon.org/images/normal-sprite/${specialCharacter3d.toLowerCase()}.gif`;
 
+
+
+
+
+
   switch (artStyle) {
     case "1":
       selectedArtStyle = cartoonURL;
@@ -136,15 +143,23 @@ const PokemonCard = ({
       className={types[0]}
       border="2px"
       boxShadow="xl"
-      h="100%"
+      minH="270"
+      maxH="271"
+      maxW="280"
+      minW="279"
+      justifyContent="space-between"
     >
-      <Flex paddingRight={["0", "0", "30%", "30%", "60%"]}>
-        <Box fontSize={["10", "12", "20"]} fontWeight="medium" paddingTop="2">
+      <Flex
+        paddingRight={["0", "0", "0", "0", "0"]}
+        w="100%"
+        borderBottom="1px"
+      >
+        <Box fontSize={["15", "18", "20"]} fontWeight="medium" paddingTop="2">
           {name}
         </Box>
 
         <Box
-          fontSize={["5", "8", "15"]}
+          fontSize={["8", "10", "15"]}
           paddingLeft="2"
           color="gray"
           paddingTop="3"
@@ -152,26 +167,21 @@ const PokemonCard = ({
           #{id}
         </Box>
       </Flex>
-      <Flex justifyContent="center" minH="100">
-    
-          <Image
-            src={selectedArtStyle}
-            maxH={["100", "150", "200"]}
-            maxW={["100", "150", "200"]}
-            minH={["10", "100", "150"]}
-            minW={["10", "100", "150"]}
-            paddingBottom="5"
-            paddingTop="5"
-          />
-    
+      <Flex justifyContent="center">
+        <Image
+          src={selectedArtStyle}
+          maxH={["150", "150", "200"]}
+          paddingBottom="5"
+          paddingTop="5"
+        />
       </Flex>
 
       <Flex
         justifyContent="flex-end"
         paddingBottom="2"
-        paddingLeft={["0", "0", "72%"]}
+        w="100%"
         gap={["1", "2", "3"]}
-        fontSize={["5", "8", "12"]}
+        fontSize={["8", "10", "14"]}
       >
         {types.map((type) => (
           <Box
