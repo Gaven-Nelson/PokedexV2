@@ -40,9 +40,6 @@ function App() {
   const navigate = useNavigate();
   let { pageNumber = 1 } = useParams();
   const [artStyle, setArtStyle] = useState("");
-  
-
-//  let pageValue = "1";
 
   interface Pokemon {
     id: number;
@@ -108,6 +105,8 @@ function App() {
   };
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     fetch(
       `https://intern-pokedex.myriadapps.com/api/v1/pokemon?name=${searchValue}&page=${pageNumber}`
     )
@@ -117,6 +116,11 @@ function App() {
         setMeta(data.meta);
         setIsLoading(false);
       });
+
+
+      return function cancel() {
+        abortController.abort();
+      }
   }, [pageNumber, artStyle, searchValue]);
 
   if (isLoading === true) {
@@ -238,7 +242,7 @@ function App() {
             <MenuButton
               as={Button}
               w={["100%", "100%", "100%"]}
-              fontSize={["6", "8", "12"]}
+              fontSize={["8", "10", "12"]}
               rightIcon={<ChevronDownIcon />}
             >
               Pokemon Art Style
@@ -417,39 +421,3 @@ function App() {
 }
 
 export default App;
-
-//let pokemonURL = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png`;
-
-//old fetch
-// const fetchApi = async () => {
-//   const information = await fetch(
-//     `https://intern-pokedex.myriadapps.com/api/v1/pokemon?page=${pageNumber}`,
-//     {
-//       method: "GET",
-//     }
-//   );
-//   const jsonData = await information.json();
-//   setPokemon(jsonData.data);
-//   setMeta(jsonData.meta);
-//   setIsLoading(false);
-// };
-//fetchApi();
-
-// <InputGroup>
-// <InputLeftAddon fontWeight="semibold" bg="gray.200">
-//   Go To Page:
-// </InputLeftAddon>
-// <NumberInput
-//   ref={toPageValue}
-//   // min={1}
-//   // max={37}
-//   bg="gray.100"
-//   borderRadius="5"
-// >
-//   <NumberInputField />
-//   <NumberInputStepper>
-//     <NumberIncrementStepper />
-//     <NumberDecrementStepper />
-//   </NumberInputStepper>
-// </NumberInput>
-// </InputGroup>

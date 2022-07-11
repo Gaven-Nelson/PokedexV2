@@ -235,12 +235,12 @@ const PokemonCard = ({
         w="100%"
         borderBottom="1px"
       >
-        <Box fontSize={["15", "18", "20"]} fontWeight="medium" paddingTop="2">
+        <Box fontSize={["20", "22", "23"]} fontWeight="medium" paddingTop="2">
           {name}
         </Box>
 
         <Box
-          fontSize={["8", "10", "15"]}
+          fontSize={["12", "16", "18"]}
           paddingLeft="2"
           color="gray"
           paddingTop="3"
@@ -263,7 +263,7 @@ const PokemonCard = ({
         paddingBottom="2"
         w="100%"
         gap={["1", "2", "3"]}
-        fontSize={["8", "10", "14"]}
+        fontSize={["12", "14", "14"]}
       >
         {types.map((type) => (
           <Box
