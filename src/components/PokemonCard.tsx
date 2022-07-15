@@ -9,7 +9,6 @@ import {
   Skeleton,
   Container,
 } from "@chakra-ui/react";
-import ArtMenu from "./ArtMenu";
 import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/components/PokemonCard.css";
 import { pokemonColorTheme } from "../theme/theme";
@@ -20,7 +19,7 @@ interface Props {
   image: string;
   types: Array<string>;
   artStyle: string;
-  isLoading: boolean;
+  
 }
 
 const PokemonCard = ({
@@ -29,7 +28,7 @@ const PokemonCard = ({
   image,
   types,
   artStyle,
-  isLoading,
+ 
 }: Props) => {
   let selectedArtStyle = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png`;
   const navigate = useNavigate();

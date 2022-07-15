@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import React from "react";
-import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
 import Details from "./components/Details";
 
 
@@ -12,10 +12,8 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path = "/" element={<App />}/>
-        <Route path="/page" element={<App />} />
-        <Route path="/page/:pageNumber" element={<App />} />
         <Route path="/Id/:id" element ={<Details key={undefined} id={1} name={""} image={""} types={[]} />}/>
-        <Route path="/page=:pageNumber/name=:seachValue" element={<App />} />
+        <Route path="*" element={<Box>404</Box>} />
       </Routes>
     </BrowserRouter>
   );

@@ -175,23 +175,22 @@ function Details() {
   }
 
   const spritePixelNextURL = `https://intern-pokedex.myriadapps.com/images/pokemon/${
-    pokemon?.id + 1
+    pokemon?.id! + 1
   }.png`;
   const spritePixelBackURL = `https://intern-pokedex.myriadapps.com/images/pokemon/${
-    pokemon?.id - 1
+    pokemon?.id! - 1
   }.png`;
 
   const pokedexURL = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${sugimoriId}.png`;
-
   const miniSpriteImageBackURL = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${spriteSugimoriBackId}.png`;
   const miniSpriteImageNextURL = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${spriteSugimoriNextId}.png`;
 
   const handleBackSprite = () => {
-    navigate("/Id/" + (pokemon?.id - 1));
+    navigate("/Id/" + (pokemon?.id! - 1));
   };
 
   const handleNextSprite = () => {
-    navigate("/Id/" + (pokemon?.id + 1));
+    navigate("/Id/" + (pokemon?.id! + 1));
   };
 
   const handleBackButton = () => {
@@ -216,7 +215,7 @@ function Details() {
     };
 
     fetchApi();
-  }, [pokemonId, pokemon?.types, isLoading]);
+  }, [pokemonId]);
 
   if (isLoading === true) {
     return (
@@ -738,8 +737,8 @@ function Details() {
           </Box>
         </Flex>
       </Box>
-    );
-  }
+    ); 
+  }else{return(<Box>Something went wrong</Box>)}
 }
 
 export default Details;

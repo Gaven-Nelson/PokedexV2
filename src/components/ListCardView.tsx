@@ -8,7 +8,6 @@ import {
   AspectRatio,
   Skeleton,
 } from "@chakra-ui/react";
-import ArtMenu from "./ArtMenu";
 import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/components/PokemonCard.css";
 
@@ -18,7 +17,7 @@ interface Props {
   image: string;
   types: Array<string>;
   artStyle: string;
-  isLoading: boolean;
+  
 }
 
 const ListCardView = ({
@@ -27,7 +26,7 @@ const ListCardView = ({
   image,
   types,
   artStyle,
-  isLoading,
+ 
 }: Props) => {
   let selectedArtStyle = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${id}.png`;
   const navigate = useNavigate();
