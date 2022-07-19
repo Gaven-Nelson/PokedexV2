@@ -1,16 +1,7 @@
-import {
-  useState,
-  useEffect,
-} from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/App.css";
-import {
-  Box,
-  Flex,
-  Container,
-  Image,
-
-} from "@chakra-ui/react";
+import { Box, Flex, Container, Image } from "@chakra-ui/react";
 import pikachu from "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/runningPikachu.gif";
 import AppHeader from "./components/AppHeader";
 import { useArtStyle } from "./context/ArtStyleContext";
@@ -35,15 +26,14 @@ export interface PokemonArrayItem {
 }
 
 function App() {
-  
   const [pokemonArray, setPokemonArray] = useState<Array<PokemonArrayItem>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { meta, setMeta } = useMetaValue();
   const { artStyle, setArtStyle } = useArtStyle();
 
-  let [searchParams, setSearchParams ] = useSearchParams();
-  let pageNumber = searchParams.get('page') ?? 1;
-  let searchValue = searchParams.get('name') ?? ""; 
+  let [searchParams, setSearchParams] = useSearchParams();
+  let pageNumber = searchParams.get("page") ?? 1;
+  let searchValue = searchParams.get("name") ?? "";
 
   interface Meta {
     current_page: number;
@@ -54,7 +44,8 @@ function App() {
     const abortController = new AbortController();
 
     fetch(
-      `https://intern-pokedex.myriadapps.com/api/v1/pokemon?name=${searchValue}&page=${pageNumber}`,{signal: abortController.signal}
+      `https://intern-pokedex.myriadapps.com/api/v1/pokemon?name=${searchValue}&page=${pageNumber}`,
+      { signal: abortController.signal }
     )
       .then((response) => response.json())
       .then((data) => {
@@ -71,7 +62,9 @@ function App() {
   if (isLoading === true) {
     return (
       <Container maxW="2000" h={["1000", "1200", "1400"]} bg="teal.400">
+        <AppHeader />
         <Flex
+          paddingTop="20"
           justifyContent="center"
           flexDirection="column"
           alignItems="center"

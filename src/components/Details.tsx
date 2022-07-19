@@ -3,32 +3,16 @@ import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import {
   Box,
   Flex,
-  Container,
   Image,
   Button,
-  Stack,
-  color,
-  Colors,
-  theme,
   Text,
   Skeleton,
   SkeletonCircle,
-  Show,
   Tooltip,
-  TableContainer,
-  Table,
-  Th,
-  Tr,
-  Tbody,
-  Td,
   SimpleGrid,
 } from "@chakra-ui/react";
 import { Progress } from "@chakra-ui/progress";
-import App from "../App";
-import PokemonCard from "./PokemonCard";
 import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/components/Details.css";
-import { pokemonColorTheme } from "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/theme/theme";
-import waterBG from "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/waterBG.jpeg";
 
 interface pokemon {
   id: number;
