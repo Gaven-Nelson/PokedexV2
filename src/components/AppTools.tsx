@@ -13,7 +13,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { RefObject, createRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useArtStyle } from "../context/ArtStyleContext";
 import { useMetaValue } from "../context/MetaValueContext";
 import randomText from "/randomImage.png";
@@ -24,13 +24,20 @@ function AppTools() {
   const toPageValue: RefObject<HTMLInputElement> = createRef();
   const {meta} = useMetaValue();
 
+  let [searchParams, setSearchParams ] = useSearchParams();
+  let pageNumber = searchParams.get('page') ?? 1;
+  let searchValue = searchParams.get('name') ?? ""; 
+
+
   const handleGoButton = () => {
     if (
      meta &&
       +toPageValue.current!.value > 0 &&
       +toPageValue.current!.value <= meta.last_page
     ) {
-      navigate(`/page/` + toPageValue.current!.value);
+      setSearchParams({
+        page: `${toPageValue.current!.value}`,
+      });
     } else {
       alert("Please enter valid input");
     }

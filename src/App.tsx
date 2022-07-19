@@ -1,43 +1,18 @@
 import {
   useState,
   useEffect,
-  createRef,
-  RefObject,
-  createContext,
-  useContext,
 } from "react";
-import { useSearchParams, useParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/App.css";
 import {
   Box,
   Flex,
   Container,
   Image,
-  Button,
-  Input,
-  InputGroup,
-  SimpleGrid,
-  MenuButton,
-  Menu,
-  MenuList,
-  MenuItemOption,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  Skeleton,
-  Show,
-  Center,
-  InputLeftElement,
-  InputRightElement,
+
 } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import PokemonCard from "./components/PokemonCard";
-import ListCardView from "./components/ListCardView";
 import pikachu from "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/runningPikachu.gif";
 import AppHeader from "./components/AppHeader";
-import { useSearchValue } from "./context/SearchValueContext";
 import { useArtStyle } from "./context/ArtStyleContext";
 import AppTools from "./components/AppTools";
 import { useMetaValue } from "./context/MetaValueContext";
@@ -60,17 +35,15 @@ export interface PokemonArrayItem {
 }
 
 function App() {
-  //const [pokemon, setPokemon] = useState<Pokemon | undefined>(undefined);
+  
   const [pokemonArray, setPokemonArray] = useState<Array<PokemonArrayItem>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { meta, setMeta } = useMetaValue();
-  let [searchParams, setSearchParams ] = useSearchParams();
+  const { artStyle, setArtStyle } = useArtStyle();
 
+  let [searchParams, setSearchParams ] = useSearchParams();
   let pageNumber = searchParams.get('page') ?? 1;
   let searchValue = searchParams.get('name') ?? ""; 
-
-  const { artStyle, setArtStyle } = useArtStyle();
-  //const { searchValue, setSearchValue } = useSearchValue();
 
   interface Meta {
     current_page: number;

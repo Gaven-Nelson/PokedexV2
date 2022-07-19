@@ -8,12 +8,13 @@ import Details from "./components/Details";
 
 
 function Router() {
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route path = "/" element={<App />}/>
         <Route path="/Id/:id" element ={<Details key={undefined} id={1} name={""} image={""} types={[]} />}/>
-        <Route path="*" element={<Box>404</Box>} />
+        <Route path="*" element={<Box justifyContent="center" fontSize="20">404: Page not found</Box>} />
       </Routes>
     </BrowserRouter>
   );
