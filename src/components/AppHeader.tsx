@@ -1,18 +1,17 @@
-import { Box, Button, Flex, Input, InputGroup, InputRightElement, Image } from "@chakra-ui/react";
-import { useState, useContext } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import App from "../App";
-import {  useSearchValue } from "../context/SearchValueContext";
+import { Box, Button, Flex, Input, InputGroup, InputRightElement, Image, Show } from "@chakra-ui/react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useMetaValue } from "../context/MetaValueContext";
 import pokedexText from "/PokemonText.png";
 
 function AppHeader() {
-  const navigate = useNavigate();
-  //const {searchValue, setSearchValue} = useSearchValue();
-  //let { pageNumber = 1 } = useParams();
-  let [searchParams, setSearchParams ] = useSearchParams();
 
+  let [searchParams, setSearchParams ] = useSearchParams();
   let pageNumber = searchParams.get('page') ?? 1;
   let searchValue = searchParams.get('name') ?? ""; 
+
+  const {meta} = useMetaValue();
+
+  
 
   const handleClickMinus = () => {
     if (pageNumber > 1) {
@@ -22,8 +21,8 @@ function AppHeader() {
       });
     } else  {
       setSearchParams({
-        page: `${ 37 }`,
         name: `${searchValue}`,
+        page: `${ meta?.last_page }`,
       });
     }
   };
@@ -48,15 +47,15 @@ function AppHeader() {
   };
 
   const handleClickPlus = () => {
-    if (pageNumber < 37) {
+    if (pageNumber < meta?.last_page!) {
       setSearchParams({
         name: `${searchValue}`,
         page: `${+pageNumber + 1}`,
       });
     } else {
       setSearchParams({
-        page: `${ 1 }`,
         name: `${searchValue}`,
+        page: `${ 1 }`,
       });
     }
   };
@@ -116,6 +115,7 @@ function AppHeader() {
                 ringColor="white"
               >
                 <Input
+                boxShadow="0 0 0 1px #cce6e6"
                   flexGrow="1"
                   placeholder="Search"
                   _placeholder={{ color: "white" }}
@@ -128,6 +128,7 @@ function AppHeader() {
                   value={searchValue}
                 ></Input>
                 <InputRightElement h="100%" width="4.5rem" paddingRight="2%">
+                  
                   <Button
                     h="70%"
                     size="md"
@@ -137,6 +138,7 @@ function AppHeader() {
                   >
                     Clear
                   </Button>
+                
                 </InputRightElement>
               </InputGroup>
             </Box>

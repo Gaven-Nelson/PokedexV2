@@ -36,7 +36,6 @@ function AppBody({pokemonArray}: Props) {
     >
       <TabList paddingLeft="5">
         <Tab>&#8862; Grid</Tab>
-
         <Tab>&#x2263; List</Tab>
       </TabList>
       <TabPanels>

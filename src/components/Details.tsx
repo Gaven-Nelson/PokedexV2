@@ -21,6 +21,7 @@ import {
   Tr,
   Tbody,
   Td,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { Progress } from "@chakra-ui/progress";
 import App from "../App";
@@ -57,7 +58,14 @@ function Details() {
   const [isLoading, setIsLoading] = useState(true);
   const pokemonId = useParams().id;
   const navigate = useNavigate();
+  let [searchParams, setSearchParams] = useSearchParams();
 
+  let pageNumber = searchParams.get("page") ?? 1;
+  let searchValue = searchParams.get("name") ?? "";
+
+  let sugimoriId = "1";
+  let spriteSugimoriBackId = "1";
+  let spriteSugimoriNextId = "1";
   let bgImageUrl = "";
 
   if (pokemon) {
@@ -141,20 +149,6 @@ function Details() {
     }
   }
 
-  let secondaryColor = "";
-
-  const handleColorType = () => {
-    if (pokemon && pokemon.types.length > 1) {
-      secondaryColor = "water";
-    } else {
-      secondaryColor = "fighting";
-    }
-  };
-
-  let sugimoriId = "1";
-  let spriteSugimoriBackId = "1";
-  let spriteSugimoriNextId = "1";
-
   if (pokemon) {
     switch (true) {
       case pokemon.id < 10:
@@ -182,8 +176,6 @@ function Details() {
   }.png`;
 
   const pokedexURL = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${sugimoriId}.png`;
-  const miniSpriteImageBackURL = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${spriteSugimoriBackId}.png`;
-  const miniSpriteImageNextURL = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${spriteSugimoriNextId}.png`;
 
   const handleBackSprite = () => {
     navigate("/Id/" + (pokemon?.id! - 1));
@@ -201,21 +193,22 @@ function Details() {
     navigate("/");
   };
 
+  
   useEffect(() => {
-    const fetchApi = async () => {
-      const information = await fetch(
-        `https://intern-pokedex.myriadapps.com/api/v1/pokemon/${pokemonId}`,
-        {
-          method: "GET",
-        }
-      );
-      const jsonData = await information.json();
-      setPokemon(jsonData.data);
-      setIsLoading(false);
-    };
+    const abortController = new AbortController();
 
-    fetchApi();
-  }, [pokemonId]);
+    fetch(
+      `https://intern-pokedex.myriadapps.com/api/v1/pokemon/${pokemonId}`,{signal: abortController.signal}
+    ).then((response) =>response.json()).then((data) => {
+      setPokemon(data.data);
+      setIsLoading(false)
+    });
+
+    return function cancel(){
+      abortController.abort();
+    }
+
+    },[pokemonId]);
 
   if (isLoading === true) {
     return (
@@ -421,27 +414,22 @@ function Details() {
                       HP:
                     </Tooltip>
                   </Text>
-                  <Box
-                    w="10%"
-                    h="25px"
-                    textColor="black"                    
-                    noOfLines={1}                   
-                  >
+                  <Box w="10%" h="25px" textColor="black" noOfLines={1}>
                     {pokemon.stats.hp}
                   </Box>
                   <Progress
-                  borderRadius="10px"
+                    borderRadius="10px"
                     w="55%"
                     h="25px"
                     value={(pokemon.stats.hp / 255) * 100}
-                    border="1px"                    
+                    border="1px"
                     textColor="black"
                     colorScheme={pokemon.types[1] || pokemon.types[0]}
                   />
-                    <Box
+                  <Box
                     w="15%"
-                    h="25px"       
-                    fontSize="12"       
+                    h="25px"
+                    fontSize="12"
                     textColor="gray"
                     borderColor="black"
                     textAlign="center"
@@ -464,16 +452,11 @@ function Details() {
                       Attack:
                     </Tooltip>
                   </Text>
-                  <Text
-                    w="10%"
-                    h="25px"
-                    textColor="black"                
-                    noOfLines={1}
-                  >
+                  <Text w="10%" h="25px" textColor="black" noOfLines={1}>
                     {pokemon.stats.attack}
                   </Text>
                   <Progress
-                  borderRadius="10px"
+                    borderRadius="10px"
                     w="55%"
                     h="25px"
                     value={(pokemon.stats.attack / 165) * 100}
@@ -481,10 +464,10 @@ function Details() {
                     textColor="black"
                     colorScheme={pokemon.types[1] || pokemon.types[0]}
                   />
-                    <Box
+                  <Box
                     w="15%"
-                    h="25px"                    
-                    fontSize="12"       
+                    h="25px"
+                    fontSize="12"
                     textColor="gray"
                     borderColor="black"
                     textAlign="center"
@@ -507,16 +490,11 @@ function Details() {
                       Defense:
                     </Tooltip>
                   </Text>
-                  <Box
-                    w="10%"
-                    h="25px"                    
-                    textColor="black"                   
-                    noOfLines={1}
-                  >
+                  <Box w="10%" h="25px" textColor="black" noOfLines={1}>
                     {pokemon.stats.defense}
                   </Box>
                   <Progress
-                  isAnimated
+                    isAnimated
                     w="55%"
                     h="25px"
                     borderRadius="10px"
@@ -525,10 +503,10 @@ function Details() {
                     textColor="black"
                     colorScheme={pokemon.types[1] || pokemon.types[0]}
                   />
-                    <Box
+                  <Box
                     w="15%"
-                    h="25px"                    
-                    fontSize="12"       
+                    h="25px"
+                    fontSize="12"
                     textColor="gray"
                     borderColor="black"
                     textAlign="center"
@@ -551,16 +529,11 @@ function Details() {
                       Speed:
                     </Tooltip>
                   </Text>
-                  <Text
-                    w="10%"
-                    h="25px"              
-                    textColor="black"                  
-                    noOfLines={1}
-                  >
+                  <Text w="10%" h="25px" textColor="black" noOfLines={1}>
                     {pokemon.stats.speed}
                   </Text>
                   <Progress
-                  isAnimated
+                    isAnimated
                     w="55%"
                     h="25px"
                     borderRadius="10px"
@@ -569,10 +542,10 @@ function Details() {
                     textColor="black"
                     colorScheme={pokemon.types[1] || pokemon.types[0]}
                   />
-                    <Box
+                  <Box
                     w="15%"
-                    h="25px"                    
-                    fontSize="12"       
+                    h="25px"
+                    fontSize="12"
                     textColor="gray"
                     borderColor="black"
                     textAlign="center"
@@ -595,12 +568,7 @@ function Details() {
                       Sp Atk:
                     </Tooltip>
                   </Text>
-                  <Box
-                    w="10%"
-                    h="25px"
-                    textColor="black"
-                    noOfLines={1}
-                  >
+                  <Box w="10%" h="25px" textColor="black" noOfLines={1}>
                     {pokemon.stats["special-attack"]}
                   </Box>
                   <Progress
@@ -614,8 +582,8 @@ function Details() {
                   />
                   <Box
                     w="15%"
-                    h="25px"                    
-                    fontSize="12"       
+                    h="25px"
+                    fontSize="12"
                     textColor="gray"
                     borderColor="black"
                     textAlign="center"
@@ -658,10 +626,10 @@ function Details() {
                     textColor="black"
                     colorScheme={pokemon.types[1] || pokemon.types[0]}
                   />
-                    <Box
+                  <Box
                     w="15%"
-                    h="25px"                    
-                    fontSize="12"       
+                    h="25px"
+                    fontSize="12"
                     textColor="gray"
                     borderColor="black"
                     textAlign="center"
@@ -694,95 +662,25 @@ function Details() {
                 Profile
               </Box>
             </Flex>
-          <TableContainer  fontSize={["4","8","15"]}>
-            <Table variant='simple' w="100%">
-              <Tr>
-                <Th></Th>
-                <Th></Th>
-                <Th></Th>
-                <Th></Th>
-              </Tr>
-              <Tbody>
-                <Tr>
-                  <Td textColor="black">
-                    Height:
-                  </Td>
-                  <Td>
-                    {pokemon.height + " m"}
-                  </Td>
-                  <Td textColor="black">
-                    Egg Groups:
-                  </Td>
-                  <Td textTransform="capitalize">
-                    {pokemon.egg_groups.join(", ")}
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td textColor="black">
-                    Weight:
-                  </Td>
-                  <Td>
-                    {pokemon.weight + " kg"}
-                  </Td>
-                  <Td textColor="black">
-                    Abilities:
-                  </Td>
-                  <Td textTransform="capitalize">
-                    {pokemon.abilities.join(", ")}
-                  </Td>
-                </Tr>
-              </Tbody>
-            </Table>
-          </TableContainer>
+           <SimpleGrid columns={4} paddingTop="5" fontSize={["12","16","16"]}>
+           <Box textColor="black">Height: </Box>
+           <Box> {pokemon.height + " m"} </Box>
+           <Box textColor="black">Egg Groups: </Box>
+           <Box textTransform="capitalize">{pokemon.egg_groups.join(", ")}</Box>
+           </SimpleGrid>  
+           <SimpleGrid columns={4} paddingTop="5" fontSize={["12","16","16"]}>
+           <Box textColor="black">Weight: </Box>
+           <Box> {pokemon.weight + " kg"} </Box>
+           <Box textColor="black">Abilities: </Box>
+           <Box textTransform="capitalize">{pokemon.abilities.join(", ")}</Box>
+           </SimpleGrid>
           </Box>
         </Flex>
       </Box>
-    ); 
-  }else{return(<Box>Something went wrong</Box>)}
+    );
+  } else {
+    return <Box>Something went wrong</Box>;
+  }
 }
 
 export default Details;
-
-//old profile area
-{/* <Flex
-flexDirection="row"
-justifyContent="space-evenly"
-alignContent="center"
-alignItems="center"
-fontSize={["10", "12", "18"]}
-paddingTop="2%"
-fontWeight="normal"
->
-<Flex flexDirection="column">
-  <Flex>
-    <Box color="black" noOfLines={1}>
-      {"Height:  " + pokemon.height + " m"}
-    </Box>
-  </Flex>
-  <Flex paddingTop="5%">
-    <Box color="black" noOfLines={1}>
-      {"Weight: " + pokemon.weight + " kg"}
-    </Box>
-  </Flex>
-</Flex>
-<Flex flexDirection="column" w="fit-content">
-  <Flex>
-    <Box
-      color="black"
-      textTransform="capitalize"
-      fontWeight="normal"
-    >
-      {"Egg Groups: " + pokemon.egg_groups.join(", ")}
-    </Box>
-  </Flex>
-  <Flex paddingTop="5%">
-    <Box
-      color="black"
-      textTransform="capitalize"
-      fontWeight="normal"
-    >
-      {"Abilities: " + pokemon.abilities.join(", ")}
-    </Box>
-  </Flex>
-</Flex>
-</Flex> */}
