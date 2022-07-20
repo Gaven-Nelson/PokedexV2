@@ -6,31 +6,21 @@ import {
   TabPanel,
   SimpleGrid,
 } from "@chakra-ui/react";
-import { useArtStyle } from "../context/ArtStyleContext";
-import { usePokemonArray } from "../context/PokemonArrayContext";
-import { usePokemon } from "../context/PokemonContext";
-import ListCardView from "./ListCardView";
-import PokemonCard from "./PokemonCard";
-import { PokemonArrayItem } from '../App';
+import { useArtStyle } from "../../context/ArtStyleContext";
+import { usePokemonArray } from "../../context/PokemonArrayContext";
+import { usePokemon } from "../../context/PokemonContext";
+import ListCardView from "../ListCardView";
+import PokemonCard from "../PokemonCard";
+import { PokemonArrayItem } from '../../App';
 
 interface Props {
   pokemonArray: Array<PokemonArrayItem>;
 }
 
-
 function AppBody({pokemonArray}: Props) {
-  interface Pokemon {
-    id?: number;
-    name?: string;
-    image?: string;
-    types?: Array<string>;
-  }
-
 
   const { artStyle } = useArtStyle();
-  //const { pokemonArray } = usePokemonArray();
-  const { pokemon } = usePokemon();
-
+  
   return (
     <Tabs //-------------------TAB SELECTOR-------------------------
     >

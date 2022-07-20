@@ -12,7 +12,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { Progress } from "@chakra-ui/progress";
-import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/components/Details.css";
+import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/components/Details/Details.css";
 
 interface pokemon {
   id: number;
@@ -636,7 +636,8 @@ function Details() {
                 //border="1px"
                 w="100%"
                 padding="1"
-                className={pokemon.types[0]}
+                //className={pokemon.types[0]}
+                color = {pokemon.types[0]}
                 backgroundImage={bgImageUrl}
                 bgPosition="center"
                 bgSize="cover"

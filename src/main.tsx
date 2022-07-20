@@ -5,7 +5,7 @@ import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import Router from "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/Router";
 import { extendTheme } from "@chakra-ui/react";
-import Details from "./components/Details";
+import Details from "./components/Details/Details";
 import { pokemonColorTheme } from "./theme/theme";
 import { SearchValueProvider } from "./context/SearchValueContext";
 import { ArtStyleProvider } from "./context/ArtStyleContext";

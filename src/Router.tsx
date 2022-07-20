@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import React from "react";
 import { Box, ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
-import Details from "./components/Details";
+import Details from "./components/Details/Details";
 
 
 function Router() {

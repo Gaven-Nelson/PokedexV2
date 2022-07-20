@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Input, InputGroup, InputRightElement, Image, Show } from "@chakra-ui/react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useMetaValue } from "../context/MetaValueContext";
+import { useMetaValue } from "../../context/MetaValueContext";
 import pokedexText from "/PokemonText.png";
 
 function AppHeader() {

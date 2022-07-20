@@ -3,11 +3,11 @@ import { useSearchParams } from "react-router-dom";
 import "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/App.css";
 import { Box, Flex, Container, Image } from "@chakra-ui/react";
 import pikachu from "/Users/gavennelson/Documents/PokedexProject2/pokedexTS/src/runningPikachu.gif";
-import AppHeader from "./components/AppHeader";
+import AppHeader from "./components/AppHeader/AppHeader";
 import { useArtStyle } from "./context/ArtStyleContext";
 import AppTools from "./components/AppTools";
 import { useMetaValue } from "./context/MetaValueContext";
-import AppBody from "./components/AppBody";
+import AppBody from "./components/AppBody/AppBody";
 
 interface Pokemon {
   id?: number;
@@ -61,7 +61,7 @@ function App() {
 
   if (isLoading === true) {
     return (
-      <Container maxW="2000" h={["1000", "1200", "1400"]} bg="teal.400">
+      <Box className="pageContainer" h="100%" minH="100vh">
         <AppHeader />
         <Flex
           paddingTop="20"
@@ -72,7 +72,7 @@ function App() {
           <Image paddingTop="100" maxH="300" maxW="300" src={pikachu} />
           <Box color="white">Loading...</Box>
         </Flex>
-      </Container>
+      </Box>
     );
   }
 
